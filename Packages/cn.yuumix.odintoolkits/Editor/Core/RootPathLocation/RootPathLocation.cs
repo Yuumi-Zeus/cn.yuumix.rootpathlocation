@@ -24,7 +24,21 @@ namespace Yuumix.Editor.Core
                 return;
             }
 
-            // GettingStartedWindow.ShowWindow();
+            // 延迟到下一帧执行，确保 GUI 系统已初始化
+            EditorApplication.delayCall += ShowWindowDelayed;
+        }
+
+        static void ShowWindowDelayed()
+        {
+            EditorApplication.delayCall -= ShowWindowDelayed;
+
+            // 防止有人在 Play 模式下导入包
+            if (EditorApplication.isPlayingOrWillChangePlaymode)
+            {
+                return;
+            }
+
+            GettingStartedWindow.ShowWindow();
             instance.hasInitialized = true;
             instance.Save(true);
             Debug.Log("Saved to: " + GetFilePath());
@@ -33,8 +47,7 @@ namespace Yuumix.Editor.Core
         [MenuItem("Tools/Odin Toolkits/Print HasInitialized")]
         public static void Log()
         {
-            // 确保 instance 不为 null
-            if (instance == null)
+            if (!instance)
             {
                 Debug.LogError("RootPathLocation instance is null!");
                 return;
