@@ -1,7 +1,7 @@
 {
   "dependencies": {
-    "cn.yuumix.odintoolkits": {
-      "version": "file:cn.yuumix.odintoolkits",
+    "cn.yuumix.rootpathlocation": {
+      "version": "file:cn.yuumix.rootpathlocation",
       "depth": 0,
       "source": "embedded",
       "dependencies": {}
